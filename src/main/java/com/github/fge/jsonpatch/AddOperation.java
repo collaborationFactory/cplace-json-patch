@@ -141,18 +141,10 @@ public final class AddOperation
         final JsonNode targetObject = target.get(objectName);
 
         if (targetObject != null && targetObject.isArray()) {
-            addToArrayObject((ArrayNode) targetObject);
+            ((ArrayNode)targetObject).addAll((ArrayNode) value);
         } else {
             target.set(objectName, value);
         }
         return ret;
-    }
-
-    private void addToArrayObject(ArrayNode targetObject) {
-        if (value.isArray()) {
-            targetObject.addAll((ArrayNode) value);
-        } else {
-            targetObject.add(value);
-        }
     }
 }
