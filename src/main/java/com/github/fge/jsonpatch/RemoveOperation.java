@@ -75,15 +75,22 @@ public final class RemoveOperation
     private void removeFromObject(JsonNode parentNode, String fieldName) {
         final JsonNode targetObject = parentNode.get(fieldName);
         if (targetObject.isArray()) {
-            if (value.isArray()) {
-                final ArrayNode arr = remove((ArrayNode) targetObject, (ArrayNode) value);
-                ((ObjectNode) parentNode).replace(fieldName, arr);
-            } else {
-                final ArrayNode arr = remove((ArrayNode) targetObject, value);
-                ((ObjectNode) parentNode).replace(fieldName, arr);
-            }
+            removeFromArray((ObjectNode) parentNode, fieldName, (ArrayNode) targetObject);
         } else {
             ((ObjectNode) parentNode).remove(fieldName);
+        }
+    }
+
+    private void removeFromArray(ObjectNode parentNode, String fieldName, ArrayNode targetObject) {
+        if (value.isNull()) {
+            parentNode.remove(fieldName);
+        }
+        else if (value.isArray()) {
+            final ArrayNode arr = remove(targetObject, (ArrayNode) value);
+            parentNode.replace(fieldName, arr);
+        } else {
+            final ArrayNode arr = remove(targetObject, value);
+            parentNode.replace(fieldName, arr);
         }
     }
 

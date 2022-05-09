@@ -23,6 +23,11 @@
             "expected": { "x": [ "z" ], "foo": "bar" }
         },
         {
+            "op": { "op": "remove", "path": "/x" },
+            "node": { "x": [ {"a":  3}, "z" ], "foo": "bar" },
+            "expected": { "foo": "bar" }
+        },
+        {
             "op": { "op": "remove", "path": "/x/y" },
             "node": { "x": { "a": "b", "y": {} } },
             "expected": { "x": { "a": "b" } }
