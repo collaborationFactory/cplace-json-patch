@@ -20,7 +20,7 @@
 /*
  * Project-specific settings. Unfortunately we cannot put the name in there!
  */
-group = "cf.cplace.json-patch";
+group = "cf.cplace.cplace-json-patch";
 version = "1.13";
 sourceCompatibility = JavaVersion.VERSION_1_7;
 targetCompatibility = JavaVersion.VERSION_1_7; // defaults to sourceCompatibility
