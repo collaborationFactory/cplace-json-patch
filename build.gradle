@@ -32,7 +32,7 @@ buildscript {
 };
 
 plugins {
-    id("net.ltgt.errorprone") version "0.8.1" apply false
+//    id("net.ltgt.errorprone") version "0.8.1" apply false
 }
 
 configure(allprojects) {
@@ -83,8 +83,8 @@ repositories {
  * Add errorprone checking.
  */
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.3.3")
-    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
+//    errorprone("com.google.errorprone:error_prone_core:2.3.3")
+//    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 }
 
 /*
