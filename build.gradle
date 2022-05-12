@@ -27,11 +27,12 @@ buildscript {
     dependencies {
         classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.2.0'
         classpath(group: "org.springframework.build.gradle", name: "propdeps-plugin", version: "0.0.7");
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
     }
 };
 
 plugins {
-    id("net.ltgt.errorprone") version "0.8.1" apply false
+//    id("net.ltgt.errorprone") version "0.8.1" apply false
 }
 
 configure(allprojects) {
@@ -39,6 +40,7 @@ configure(allprojects) {
     apply(plugin: "propdeps-maven");
     apply(plugin: "propdeps-idea");
     apply(plugin: "propdeps-eclipse");
+    apply(plugin: 'maven-publish');
 }
 
 apply(plugin: "java");
@@ -47,11 +49,11 @@ apply(plugin: "signing");
 apply(plugin: "biz.aQute.bnd.builder");
 apply(plugin: "idea");
 apply(plugin: "eclipse");
-apply(plugin: "net.ltgt.errorprone");
+//apply(plugin: "net.ltgt.errorprone");
 
 apply(from: "project.gradle");
 
-group = "com.github.java-json-tools";
+group = "cf.cplace.cplace-json-patch";
 
 ext.forRelease = !version.endsWith("-SNAPSHOT");
 
@@ -81,8 +83,8 @@ repositories {
  * Add errorprone checking.
  */
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.3.3")
-    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
+//    errorprone("com.google.errorprone:error_prone_core:2.3.3")
+//    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 }
 
 /*
@@ -246,4 +248,27 @@ signing {
     required { forRelease && gradle.taskGraph.hasTask("uploadArchives") };
     sign configurations.archives;
 }
+
+allprojects {
+    publishing {
+        repositories {
+            maven {
+                name = "cplaceJsonPatch"
+                url uri("https://cplace.jfrog.io/artifactory/cplace-json-patch/")
+                credentials {
+                    username = project.findProperty('repo.cplace.apiTokenUser') ?: System.getenv("ENV_CPLACE_ARTIFACTORY_ACTOR")
+                    password = project.findProperty('repo.cplace.apiToken') ?: System.getenv("ENV_CPLACE_ARTIFACTORY_TOKEN")
+                }
+            }
+        }
+        publications {
+            pluginMaven(MavenPublication) {
+                from components.java
+                groupId = project.group
+            }
+        }
+    }
+}
+
+
 
