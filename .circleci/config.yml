@@ -112,7 +112,7 @@ jobs:
 
 workflows:
   version: 2
-  commit:
+  nopublish:
     when: << pipeline.parameters.workflow_commit >>
     jobs:
       - build-and-test:
@@ -120,11 +120,13 @@ workflows:
           context: "cplace.jfrog.io"
           filters:
             branches:
-              ignore: /^staging\/.*$/
+              ignore:
+                - /^staging\/.*$/
+                - /^master$/
             tags:
               ignore: /^v\d+\.\d+\.\d+$/
 
-  snapshot:
+  publish:
     when: << pipeline.parameters.workflow_commit >>
     jobs:
       - build-and-test:
@@ -133,6 +135,8 @@ workflows:
           PUBLISH_SNAPSHOT: true
           filters:
             branches:
-              only: /^staging\/.*$/
+              only:
+                - /^staging\/.*$/
+                - /^master$/
             tags:
               only: /^v\d+\.\d+\.\d+$/
