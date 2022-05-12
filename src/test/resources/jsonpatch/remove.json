@@ -8,6 +8,31 @@
     ],
     "ops": [
         {
+            "op": { "op": "remove", "path": "/x", "value": "y" },
+            "node": { "x": [ "y", "z" ], "foo": "bar" },
+            "expected": { "x": [ "z" ], "foo": "bar" }
+        },
+        {
+            "op": { "op": "remove", "path": "/x", "value": ["z"] },
+            "node": { "x": [ "y", "z" ], "foo": "bar" },
+            "expected": { "x": [ "y" ], "foo": "bar" }
+        },
+        {
+            "op": { "op": "remove", "path": "/x", "value": ["y", "z"] },
+            "node": { "x": [ "y", "z", "a" ], "foo": "bar" },
+            "expected": { "x": [ "a" ], "foo": "bar" }
+        },
+        {
+            "op": { "op": "remove", "path": "/x", "value": {"a":  3} },
+            "node": { "x": [ {"a":  3}, "z" ], "foo": "bar" },
+            "expected": { "x": [ "z" ], "foo": "bar" }
+        },
+        {
+            "op": { "op": "remove", "path": "/x" },
+            "node": { "x": [ {"a":  3}, "z" ], "foo": "bar" },
+            "expected": { "foo": "bar" }
+        },
+        {
             "op": { "op": "remove", "path": "/x/y" },
             "node": { "x": { "a": "b", "y": {} } },
             "expected": { "x": { "a": "b" } }

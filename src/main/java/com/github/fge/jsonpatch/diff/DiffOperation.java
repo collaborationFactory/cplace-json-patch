@@ -15,11 +15,14 @@
  *
  * - LGPL 3.0: https://www.gnu.org/licenses/lgpl-3.0.txt
  * - ASL 2.0: http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * NOTE: This file has been modified by collaboration Factory AG.
  */
 
 package com.github.fge.jsonpatch.diff;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.github.fge.jackson.jsonpointer.JsonPointer;
 import com.github.fge.jsonpatch.AddOperation;
 import com.github.fge.jsonpatch.CopyOperation;
@@ -145,7 +148,7 @@ final class DiffOperation
             @Override
             JsonPatchOperation toOperation(final DiffOperation op)
             {
-                return new RemoveOperation(op.from);
+                return new RemoveOperation(op.from, NullNode.getInstance());
             }
         },
         REPLACE
