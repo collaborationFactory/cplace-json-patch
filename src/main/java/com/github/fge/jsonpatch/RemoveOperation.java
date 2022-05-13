@@ -51,7 +51,7 @@ public final class RemoveOperation
     public RemoveOperation(@JsonProperty("path") final JsonPointer path, @JsonProperty(value = "value") final JsonNode value)
     {
         super("remove", path);
-        this.value = value;
+        this.value = value != null ? value : NullNode.getInstance();
     }
 
     @Override

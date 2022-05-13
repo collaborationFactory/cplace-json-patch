@@ -21,7 +21,7 @@
  * Project-specific settings. Unfortunately we cannot put the name in there!
  */
 group = "cf.cplace.cplace-json-patch";
-version = "1.13";
+version = "1.13.1";
 sourceCompatibility = JavaVersion.VERSION_1_7;
 targetCompatibility = JavaVersion.VERSION_1_7; // defaults to sourceCompatibility
 project.ext.description = "JSON Patch (RFC 6902) and JSON Merge Patch (RFC 7386) implementation in Java";
